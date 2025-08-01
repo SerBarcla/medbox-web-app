@@ -15,6 +15,6 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MEDBOX_APP_12345 }}' # Replace with your project ID
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MEDBOX_APP_082542069 }}' # Replace with your project ID
           channelId: live
-          projectId: medbox-app-12345 # Replace with your project ID
+          projectId: medbox-app-082542069 # Replace with your project ID
