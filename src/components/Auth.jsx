@@ -1,9 +1,94 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import { auth } from '../firebase';
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword 
 } from 'firebase/auth';
+
+// Styled Components
+const AuthPageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const FormContainer = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 28rem;
+`;
+
+const Title = styled.h1`
+  font-size: 1.875rem;
+  font-weight: bold;
+  text-align: center;
+  color: #2563eb; /* blue-600 */
+  margin-bottom: 1.5rem;
+`;
+
+const TabContainer = styled.div`
+  display: flex;
+  border-bottom: 1px solid #d1d5db;
+  margin-bottom: 1.5rem;
+`;
+
+const TabButton = styled.button`
+  flex: 1;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: ${props => props.active ? '#2563eb' : '#6b7280'};
+  border-bottom: ${props => props.active ? '2px solid #2563eb' : '2px solid transparent'};
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Input = styled.input`
+  margin-top: 0.25rem;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #3b82f6;
+    border-color: #3b82f6;
+  }
+`;
+
+const Button = styled.button`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  background-color: #2563eb;
+  &:hover {
+    background-color: #1d4ed8;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  color: #ef4444;
+  font-size: 0.875rem;
+`;
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,51 +111,38 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
-          Welcome to MedBox
-        </h1>
-        <div className="flex border-b mb-6">
-          <button
-            onClick={() => setIsLogin(true)}
-            className={`flex-1 py-2 text-center font-semibold ${isLogin ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
-          >
+    <AuthPageContainer>
+      <FormContainer>
+        <Title>Welcome to MedBox</Title>
+        <TabContainer>
+          <TabButton active={isLogin} onClick={() => setIsLogin(true)}>
             Login
-          </button>
-          <button
-            onClick={() => setIsLogin(false)}
-            className={`flex-1 py-2 text-center font-semibold ${!isLogin ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
-          >
+          </TabButton>
+          <TabButton active={!isLogin} onClick={() => setIsLogin(false)}>
             Sign Up
-          </button>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
+          </TabButton>
+        </TabContainer>
+        <Form onSubmit={handleSubmit}>
+          <Input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Email"
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
-          <input
+          <Input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="Password"
-            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <button
-            type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-          >
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <Button type="submit">
             {isLogin ? 'Log In' : 'Sign Up'}
-          </button>
-        </form>
-      </div>
-    </div>
+          </Button>
+        </Form>
+      </FormContainer>
+    </AuthPageContainer>
   );
 }
