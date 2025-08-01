@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedBox</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { text-align: center; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        h1 { color: #0d6efd; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to MedBox!</h1>
+        <p>Your application is successfully connected to Firebase.</p>
+        <p>Open the developer console to see more.</p>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+
+    <!-- Your App's Script -->
+    <script>
+      // TODO: Add your Firebase Configuration object here.
+      const firebaseConfig = {
+        "projectId": "medbox-app-082542069",
+        "appId": "1:1028707957669:web:577df78ccbba8986b2c64c",
+        "storageBucket": "medbox-app-082542069.firebasestorage.app",
+        "apiKey": "AIzaSyDtuhIUvxjQO3PzkxXM2PYCF1n78QDVJEc",
+        "authDomain": "medbox-app-082542069.firebaseapp.com",
+        "messagingSenderId": "1028707957669"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const auth = firebase.auth();
+
+      console.log("Firebase has been successfully initialized!");
+
+    </script>
+
+</body>
+</html>
